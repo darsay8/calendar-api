@@ -1,16 +1,26 @@
 const { response } = require('express');
 
 const createUser = (req, res = response) => {
-  res.json({
-    post: true,
-    action: 'Create User',
-  });
+  const { name, email, password } = req.body;
+
+  if (name.length < 5) {
+    res.status(201).json({
+      post: true,
+      action: 'Create User',
+      name,
+      email,
+      password,
+    });
+  }
 };
 
 const loginUser = (req, res = response) => {
+  const { name, email } = req.body;
   res.json({
     post: true,
     action: 'Login User',
+    email,
+    password,
   });
 };
 
