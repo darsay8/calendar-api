@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const dbConnection = async () => {
   try {
-    await mongoose.connect();
+    await mongoose.connect(process.env.DB_CNN);
     console.log('DB Ready');
   } catch (error) {
     console.log(error);
-    throw new Error('Database error:', error);
+    throw new Error('Database error');
   }
 };
 
