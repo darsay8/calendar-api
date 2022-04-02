@@ -20,7 +20,11 @@ router.post(
   [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'Email is required').isEmail(),
-    check('password', 'Password must be 6 characters').isLength({ min: 6 }),
+    check('password', 'Password must be 6 character')
+      .isLength({ min: 6 })
+      .withMessage('Password must be 6 characters')
+      .matches(/\d/)
+      .withMessage('Password must contain at least one number'),
     fieldsValidator,
   ],
   createUser,
