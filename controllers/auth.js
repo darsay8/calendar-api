@@ -23,7 +23,7 @@ const createUser = async (req, res = response) => {
 
     await user.save();
 
-    const token = await generateJWT(user.uid, user.name);
+    const token = await generateJWT(user.id, user.name);
 
     res.status(201).json({
       ok: true,
@@ -62,7 +62,7 @@ const loginUser = async (req, res = response) => {
       });
     }
 
-    const token = await generateJWT(user.uid, user.name);
+    const token = await generateJWT(user.id, user.name);
 
     res.json({
       ok: true,
@@ -79,10 +79,14 @@ const loginUser = async (req, res = response) => {
   }
 };
 
-const validateToken = (req, res = response) => {
+const validateToken = async (req, res = response) => {
+  const { uid, name } = req;
+
+  const token = await generateJWT(uid, name);
+
   res.json({
     get: true,
-    action: 'Validate Token',
+    token,
   });
 };
 
