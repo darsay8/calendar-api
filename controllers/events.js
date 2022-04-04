@@ -36,7 +36,7 @@ const updateEvent = async (req, res = response) => {
     const event = await Event.findById(eventId);
 
     if (!event) {
-      res.status(404).json({
+      return res.status(404).json({
         ok: false,
         message: 'Event not found',
       });
@@ -69,11 +69,37 @@ const updateEvent = async (req, res = response) => {
   }
 };
 
-const deleteEvent = (req, res = response) => {
-  return res.status(200).json({
-    ok: true,
-    msg: 'delete event',
-  });
+const deleteEvent = async (req, res = response) => {
+  const eventId = req.params.id;
+  const uid = req.uid;
+
+  try {
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({
+        ok: false,
+        message: 'Event not found',
+      });
+    }
+
+    if (event.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        message: 'No permission to delete this event',
+      });
+    }
+
+    await Event.findByIdAndDelete(eventId);
+
+    res.json({ ok: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      message: 'Error',
+    });
+  }
 };
 
 module.exports = {
