@@ -8,13 +8,23 @@ const getEvents = (req, res = response) => {
   });
 };
 
-const createEvent = (req, res = response) => {
-  console.log(req.body);
+const createEvent = async (req, res = response) => {
+  const event = new Event(req.body);
 
-  return res.status(200).json({
-    ok: true,
-    msg: 'create event',
-  });
+  try {
+    event.user = req.uid;
+    const savedEvent = await event.save();
+    res.status(201).json({
+      ok: true,
+      event: savedEvent,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      message: 'Error',
+    });
+  }
 };
 
 const updateEvent = (req, res = response) => {
