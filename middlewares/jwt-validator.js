@@ -7,7 +7,7 @@ const jwtValidator = (req, res, next) => {
   if (!token) {
     return res.status(401).json({
       ok: false,
-      message: 'There is no token in request',
+      msg: 'There is no token in request',
     });
   }
 
@@ -18,7 +18,7 @@ const jwtValidator = (req, res, next) => {
   } catch (error) {
     return res.status(401).json({
       ok: false,
-      message: 'Token is not valid',
+      msg: 'Token is not valid',
     });
   }
   next();
