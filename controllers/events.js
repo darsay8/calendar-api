@@ -23,7 +23,7 @@ const createEvent = async (req, res = response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      message: 'Error',
+      msg: 'Error',
     });
   }
 };
@@ -38,14 +38,14 @@ const updateEvent = async (req, res = response) => {
     if (!event) {
       return res.status(404).json({
         ok: false,
-        message: 'Event not found',
+        msg: 'Event not found',
       });
     }
 
     if (event.user.toString() !== uid) {
       return res.status(401).json({
         ok: false,
-        message: 'No permission to edit this event',
+        msg: 'No permission to edit this event',
       });
     }
 
@@ -64,7 +64,7 @@ const updateEvent = async (req, res = response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      message: 'Error',
+      msg: 'Error',
     });
   }
 };
@@ -79,14 +79,14 @@ const deleteEvent = async (req, res = response) => {
     if (!event) {
       return res.status(404).json({
         ok: false,
-        message: 'Event not found',
+        msg: 'Event not found',
       });
     }
 
     if (event.user.toString() !== uid) {
       return res.status(401).json({
         ok: false,
-        message: 'No permission to delete this event',
+        msg: 'No permission to delete this event',
       });
     }
 
@@ -97,7 +97,7 @@ const deleteEvent = async (req, res = response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      message: 'Error',
+      msg: 'Error',
     });
   }
 };

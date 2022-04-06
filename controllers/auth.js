@@ -35,7 +35,7 @@ const createUser = async (req, res = response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      message: 'Error',
+      msg: 'Error',
     });
   }
 };
@@ -74,7 +74,7 @@ const loginUser = async (req, res = response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      message: 'Error',
+      msg: 'Error',
     });
   }
 };
@@ -85,7 +85,9 @@ const validateToken = async (req, res = response) => {
   const token = await generateJWT(uid, name);
 
   res.json({
-    get: true,
+    ok: true,
+    uid,
+    name,
     token,
   });
 };
